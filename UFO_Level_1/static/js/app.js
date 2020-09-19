@@ -2,14 +2,6 @@
 var tableData = data;
 console.log(tableData);
 
-// function delete_duration(time){
-//     if (time === "durationMinutes"){
-//         delete time.durationMinutes;
-//     };
-// };
-
-// var newData=tableData.filter(delete_duration);
-// console.log(newData);
 var tbody = d3.select("tbody");
 
 tableData.forEach(function(ufo){
@@ -42,13 +34,32 @@ var form = d3.select("form");
 
 //Create event handlers for clicking the button or pressing the enter key
 button.on("click",runEnter);
-form.on("click", runEnter);
+// form.on("click", runEnter);
 
 function runEnter() {
     //select the input element and get the raw html node
     var inputElement = d3.select(".form-control");
 
     //Get the value property of the input element
-    var inputValue= inputElement.property("value");
+    var inputValue= inputElement.property("value").toLowerCase();
 
+    var filteredData = tableData.filter(date => date.datetime === inputValue);
+
+    // console.log(filteredData);
+    //remove any data from tbody
+    tbody.html("");
+
+    filteredData.forEach(function(time){
+    console.log(time);
+    var row =tbody.append("tr");
+
+    Object.entries(time).forEach(function([key,value]){
+        console.log(key,value);
+        var cell =row.append("td");
+        cell.text(value);
+    });
+});
 };
+
+
+
