@@ -34,14 +34,17 @@ var form = d3.select("form");
 
 //Create event handlers for clicking the button or pressing the enter key
 button.on("click",runEnter);
-// form.on("click", runEnter);
+form.on("submit", runEnter);
 
 function runEnter() {
-    //select the input element and get the raw html node
+    //Prevent the page from refreshing
+     d3.event.preventDefault();
+
+     //select the input element and get the raw html node
     var inputElement = d3.select(".form-control");
 
     //Get the value property of the input element
-    var inputValue= inputElement.property("value").toLowerCase();
+    var inputValue= inputElement.property("value");
 
     var filteredData = tableData.filter(date => date.datetime === inputValue);
 
